@@ -36,9 +36,8 @@ public class HelloController {
         return personDetails.getUsername();
     }
 
-//    @GetMapping("/admin")
-//    public String adminPage() {
-//        adminService.doAdminStuff();
-//        return "admin";
-//    }
+    @GetMapping("/admin")
+    public String adminPage() {
+        return "admin";
+    }
 }

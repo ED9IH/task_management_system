@@ -20,12 +20,13 @@ public class JWTUtil {
     @Value("${jwt_secret}")
     private String secret;
 
-    public String generateToken(String email) {
+    public String generateToken(String email,String role) {
         Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(60).toInstant());
 
         return JWT.create()
                 .withSubject("User details")
                 .withClaim("email", email)
+                .withClaim("role", role)
                 .withIssuedAt(new Date())
                 .withIssuer("task_management_system")
                 .withExpiresAt(expirationDate)

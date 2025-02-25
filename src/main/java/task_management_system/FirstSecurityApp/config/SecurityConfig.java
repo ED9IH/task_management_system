@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import task_management_system.FirstSecurityApp.security.JWTUtil;
 import task_management_system.FirstSecurityApp.services.PersonDetailsService;
+import task_management_system.util.Role;
 
 
 /**
@@ -51,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/**",
                         "/webjars/**"
                 ).permitAll()
-                .antMatchers("/admin").hasRole("ADMIN")
+                .antMatchers("/admin").hasAuthority(Role.ADMIN.name())
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JWTFilter(jwtUtil,personDetailsService), UsernamePasswordAuthenticationFilter.class)
