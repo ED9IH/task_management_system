@@ -52,7 +52,6 @@ public class PersonDetails implements UserDetails {
         return true;
     }
 
-    // Нужно, чтобы получать данные аутентифицированного пользователя
     public User getUser() {
         return this.user;
     }

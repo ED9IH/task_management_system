@@ -1,5 +1,9 @@
 package task_management_system.FirstSecurityApp.config;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +23,7 @@ import task_management_system.FirstSecurityApp.services.PersonDetailsService;
 /**
  * @author Neil Alishev
  */
+
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -38,9 +43,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // конфигурируем сам Spring Security
         // конфигурируем авторизацию
-        http
+        http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/login", "/auth/registration", "/error").permitAll()
+                .antMatchers("/swagger-ui/**",
+                        "/v2/api-docs/**",
+                        "/swagger-resources/**",
+                        "/webjars/**"
+                ).permitAll()
                 .antMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()

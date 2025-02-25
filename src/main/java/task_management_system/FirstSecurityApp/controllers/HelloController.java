@@ -1,4 +1,7 @@
 package task_management_system.FirstSecurityApp.controllers;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,9 +36,9 @@ public class HelloController {
         return personDetails.getUsername();
     }
 
-    @GetMapping("/admin")
-    public String adminPage() {
-        adminService.doAdminStuff();
-        return "admin";
-    }
+//    @GetMapping("/admin")
+//    public String adminPage() {
+//        adminService.doAdminStuff();
+//        return "admin";
+//    }
 }
