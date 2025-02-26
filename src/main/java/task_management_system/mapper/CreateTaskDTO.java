@@ -1,14 +1,11 @@
 package task_management_system.mapper;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import task_management_system.dto.TaskDTO;
 import task_management_system.entity.Task;
-
 import java.util.List;
 import java.util.stream.Collectors;
-
-@Mapper(componentModel = "spring", uses = {CreateUserDTO.class, CreateCommentDTO.class})
+@Mapper(componentModel = "spring", uses = {CreateUserDTO.class, MapperCommentDTO.class})
 public interface CreateTaskDTO {
     @Mapping(source = "id", target = "taskId")
     @Mapping(source = "author", target = "userDTO")

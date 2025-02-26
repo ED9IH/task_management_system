@@ -1,14 +1,9 @@
 package task_management_system.entity;
-
 import lombok.*;
-
 import task_management_system.util.Role;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-
-
 @Getter
 @Setter
 @NoArgsConstructor

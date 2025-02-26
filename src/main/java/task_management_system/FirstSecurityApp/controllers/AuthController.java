@@ -1,5 +1,4 @@
 package task_management_system.FirstSecurityApp.controllers;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,20 +6,14 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
 import task_management_system.FirstSecurityApp.dto.AuthenticationDTO;
 import task_management_system.FirstSecurityApp.dto.PersonDTO;
 import task_management_system.FirstSecurityApp.security.JWTUtil;
 import task_management_system.FirstSecurityApp.services.RegistrationService;
 import task_management_system.FirstSecurityApp.util.PersonValidator;
 import task_management_system.entity.User;
-
 import javax.validation.Valid;
 import java.util.Map;
-
-/**
- * @author Neil Alishev
- */
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -43,7 +36,7 @@ public class AuthController {
 
     @PostMapping("/registration")
     public Map<String, String> performRegistration(@RequestBody @Valid PersonDTO personDTO,
-                                      BindingResult bindingResult) {
+                                                   BindingResult bindingResult) {
         User user = convertToPerson(personDTO);
 
         personValidator.validate(user, bindingResult);
@@ -54,7 +47,7 @@ public class AuthController {
 
         registrationService.register(user);
 
-        String token = jwtUtil.generateToken(user.getEmail(),user.getRole().toString());
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRole().toString());
         return Map.of("jwt-token", token);
     }
 
@@ -63,20 +56,19 @@ public class AuthController {
         UsernamePasswordAuthenticationToken authInputToken =
                 new UsernamePasswordAuthenticationToken(authenticationDTO.getEmail(),
                         authenticationDTO.getPassword());
-
         try {
             authenticationManager.authenticate(authInputToken);
         } catch (BadCredentialsException e) {
             return Map.of("message", "Incorrect credentials!");
         }
-
-        String token = jwtUtil.generateToken(authenticationDTO.getEmail(),authenticationDTO.getRole().toString());
+        String token = jwtUtil.generateToken(authenticationDTO.getEmail(), authenticationDTO.getRole().toString());
         return Map.of("jwt-token", token);
     }
 
     public User convertToPerson(PersonDTO personDTO) {
         return this.modelMapper.map(personDTO, User.class);
     }
+
     public User convertToPersonAuthentication(AuthenticationDTO authenticationDTO) {
         return this.modelMapper.map(authenticationDTO, User.class);
     }

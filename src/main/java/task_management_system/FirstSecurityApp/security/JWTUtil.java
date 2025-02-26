@@ -1,5 +1,4 @@
 package task_management_system.FirstSecurityApp.security;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -11,9 +10,6 @@ import org.springframework.stereotype.Component;
 import java.time.ZonedDateTime;
 import java.util.Date;
 
-/**
- * @author Neil Alishev
- */
 @Component
 public class JWTUtil {
 

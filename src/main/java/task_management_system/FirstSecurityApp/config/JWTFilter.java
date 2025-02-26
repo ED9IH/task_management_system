@@ -1,25 +1,17 @@
 package task_management_system.FirstSecurityApp.config;
-
-
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import task_management_system.FirstSecurityApp.security.JWTUtil;
 import task_management_system.FirstSecurityApp.services.PersonDetailsService;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
-/**
- * @author Neil Alishev
- */
 @Component
 public class JWTFilter extends OncePerRequestFilter {
 

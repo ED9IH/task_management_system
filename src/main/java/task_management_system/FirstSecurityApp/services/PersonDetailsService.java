@@ -7,12 +7,8 @@ import org.springframework.stereotype.Service;
 import task_management_system.FirstSecurityApp.security.PersonDetails;
 import task_management_system.entity.User;
 import task_management_system.repositories.UserRepository;
-
 import java.util.Optional;
 
-/**
- * @author Neil Alishev
- */
 @Service
 public class PersonDetailsService implements UserDetailsService {
 

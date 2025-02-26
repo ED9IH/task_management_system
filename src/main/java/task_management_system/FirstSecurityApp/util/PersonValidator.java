@@ -1,17 +1,12 @@
 package task_management_system.FirstSecurityApp.util;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
 import task_management_system.FirstSecurityApp.services.PersonDetailsService;
 import task_management_system.entity.User;
 
-/**
- * @author Neil Alishev
- */
 @Component
 public class PersonValidator implements Validator {
 

@@ -1,9 +1,4 @@
 package task_management_system.FirstSecurityApp.config;
-
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
-import io.swagger.v3.oas.annotations.info.Info;
-import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,23 +16,19 @@ import task_management_system.FirstSecurityApp.services.PersonDetailsService;
 import task_management_system.util.Role;
 
 
-/**
- * @author Neil Alishev
- */
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
     private final PersonDetailsService personDetailsService;
     private final JWTFilter jwtFilter;
     private final JWTUtil jwtUtil;
 
     @Autowired
-    public SecurityConfig(PersonDetailsService personDetailsService, JWTFilter jwtFilter,JWTUtil jwtUtil) {
+    public SecurityConfig(PersonDetailsService personDetailsService, JWTFilter jwtFilter, JWTUtil jwtUtil) {
         this.personDetailsService = personDetailsService;
         this.jwtFilter = jwtFilter;
-        this.jwtUtil=jwtUtil;
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
@@ -52,16 +43,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-resources/**",
                         "/webjars/**"
                 ).permitAll()
-                .antMatchers("/admin").hasAuthority(Role.ADMIN.name())
+                .antMatchers("/task/all").hasAnyAuthority(Role.ADMIN.name(),Role.EXECUTOR.name())
+                .antMatchers("/task/{taskId}").hasAnyAuthority(Role.ADMIN.name(),Role.EXECUTOR.name())
+                .antMatchers("/task/newTask").hasAuthority(Role.ADMIN.name())
+                .antMatchers("/task/editStatus").hasAnyAuthority(Role.ADMIN.name(),Role.EXECUTOR.name())
+                .antMatchers("/task//delete").hasAuthority(Role.ADMIN.name())
+                .antMatchers("/task/editPriority").hasAuthority(Role.ADMIN.name())
+                .antMatchers("/users/allUsers").hasAuthority(Role.ADMIN.name())
+                .antMatchers("/task/addComment").hasAnyAuthority(Role.ADMIN.name(),Role.EXECUTOR.name())
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new JWTFilter(jwtUtil,personDetailsService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JWTFilter(jwtUtil, personDetailsService), UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
-    // Настраиваем аутентификацию
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(personDetailsService)

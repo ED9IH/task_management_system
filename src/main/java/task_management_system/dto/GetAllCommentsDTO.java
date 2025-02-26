@@ -8,5 +8,5 @@ import lombok.Setter;
 public class GetAllCommentsDTO {
     private long id;
     private String text;
-    private UserDTO userDTO;
+    private String author;
 }

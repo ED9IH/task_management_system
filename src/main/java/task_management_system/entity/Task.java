@@ -1,5 +1,7 @@
 package task_management_system.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import task_management_system.util.*;
 
@@ -29,7 +31,7 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User author;
-    @OneToMany(mappedBy = "task",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "task",cascade = CascadeType.ALL)
     private List<Comment> comment;
 
 }
