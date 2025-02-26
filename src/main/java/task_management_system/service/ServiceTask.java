@@ -43,7 +43,7 @@ public class ServiceTask {
         task.setPriority(newTaskDTO.getPriority());
         task.setTitle(newTaskDTO.getTitle());
         task.setDescription(newTaskDTO.getDescription());
-        task.setStatus(newTaskDTO.getStatus());
+        task.setStatus(Status.FREE);
         task.setAuthor(userRepository.findByEmail(newTaskDTO.getEmail()).orElseThrow(() ->
                 new RuntimeException("Вы указали не правильный email")));
         long id = taskRepository.save(task).getId();

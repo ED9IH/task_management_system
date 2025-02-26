@@ -1,11 +1,31 @@
 version: '3.8'
 services:
-  db:
-    image: postgres
-    container_name: task_management_system_postgres_db
+  task_management_system:
+    build:
+      context: .
+      dockerfile: java.DockerFile
+    command: [ "java", "-jar", "task_management_system-0.0.1-SNAPSHOT.jar" ]
+    ports:
+      - "8089:8089"
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: task_management_system
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/task_management_system
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
     ports:
       - "5432:5432"
+    environment:
+      POSTGRES_DB: task_management_system
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./src/main/java/task_management_system/migration/create_table_for_docker.sql:/docker-entrypoint-initdb.d/create_table_for_docker.sql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
