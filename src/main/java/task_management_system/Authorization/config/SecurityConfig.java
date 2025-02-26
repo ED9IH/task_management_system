@@ -1,4 +1,5 @@
-package task_management_system.FirstSecurityApp.config;
+package task_management_system.Authorization.config;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,10 +12,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import task_management_system.FirstSecurityApp.security.JWTUtil;
-import task_management_system.FirstSecurityApp.services.PersonDetailsService;
+import task_management_system.Authorization.security.JWTUtil;
+import task_management_system.Authorization.services.PersonDetailsService;
 import task_management_system.util.Role;
-
 
 
 @EnableWebSecurity
@@ -33,24 +33,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // конфигурируем сам Spring Security
-        // конфигурируем авторизацию
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/auth/login", "/auth/registration", "/error").permitAll()
                 .antMatchers("/swagger-ui/**",
                         "/v2/api-docs/**",
                         "/swagger-resources/**",
-                        "/webjars/**"
+                        "/webjars/**",
+                        "/task/{taskId}",
+                        "/users/allUsers"
                 ).permitAll()
-                .antMatchers("/task/all").hasAnyAuthority(Role.ADMIN.name(),Role.EXECUTOR.name())
-                .antMatchers("/task/{taskId}").hasAnyAuthority(Role.ADMIN.name(),Role.EXECUTOR.name())
+                .antMatchers("/task/all").hasAnyAuthority(Role.ADMIN.name(), Role.EXECUTOR.name())
+                .antMatchers("/task/{taskId}").hasAnyAuthority(Role.ADMIN.name(), Role.EXECUTOR.name())
                 .antMatchers("/task/newTask").hasAuthority(Role.ADMIN.name())
-                .antMatchers("/task/editStatus").hasAnyAuthority(Role.ADMIN.name(),Role.EXECUTOR.name())
-                .antMatchers("/task//delete").hasAuthority(Role.ADMIN.name())
+                .antMatchers("/task/editStatus").hasAnyAuthority(Role.ADMIN.name(), Role.EXECUTOR.name())
+                .antMatchers("/task/delete").hasAuthority(Role.ADMIN.name())
                 .antMatchers("/task/editPriority").hasAuthority(Role.ADMIN.name())
                 .antMatchers("/users/allUsers").hasAuthority(Role.ADMIN.name())
-                .antMatchers("/task/addComment").hasAnyAuthority(Role.ADMIN.name(),Role.EXECUTOR.name())
+                .antMatchers("/task/addComment").hasAnyAuthority(Role.ADMIN.name(), Role.EXECUTOR.name())
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JWTFilter(jwtUtil, personDetailsService), UsernamePasswordAuthenticationFilter.class)

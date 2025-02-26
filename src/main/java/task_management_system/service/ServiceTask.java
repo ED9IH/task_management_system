@@ -2,6 +2,8 @@ package task_management_system.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import task_management_system.dto.CreateNewTaskDTO;
 import task_management_system.dto.TaskDTO;
@@ -13,10 +15,7 @@ import task_management_system.repositories.TaskRepository;
 import task_management_system.repositories.UserRepository;
 import task_management_system.util.Priority;
 import task_management_system.util.Status;
-
 import javax.transaction.Transactional;
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class ServiceTask {
@@ -30,13 +29,12 @@ public class ServiceTask {
     private CommentRepository commentRepository;
 
     @Transactional
-    public List<TaskDTO> getAllTask() {
-        return createTaskDTO.toDTOAllTask(taskRepository.findAll());
+    public Page<TaskDTO> getAllTasks(Pageable pageable) {
+        Page<Task> taskPage = taskRepository.findAll(pageable);
+        return createTaskDTO.toDTOPage(taskPage);
     }
-
-    public TaskDTO getTaskById(long id) {
-        Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Задача не найдена"));
-        return createTaskDTO.toDTO(task);
+    public Page<Task> getTaskById(long id,Pageable pageable) {
+        return taskRepository.findByTaskId(id,pageable);
     }
 
     @Transactional
@@ -67,6 +65,16 @@ public class ServiceTask {
         Task task = taskRepository.findById(id).orElseThrow(() -> new RuntimeException("Задача не найдена"));
         task.setPriority(priority);
         return taskRepository.save(task);
+    }
+
+
+    public Page<TaskDTO> getAllTaskStatus(Status status,Pageable pageable){
+        Page<Task> tasks=taskRepository.findAllByAuthorStatus(status,pageable);
+        return tasks.map(createTaskDTO::toDTO);
+    }
+    public Page<TaskDTO> getAllTasksByUser(String email, Pageable pageable) {
+        Page<Task> tasks = taskRepository.findAllByAuthorEmail(email, pageable);
+        return tasks.map(createTaskDTO::toDTO);
     }
 
     public void deleteTask(long id) {

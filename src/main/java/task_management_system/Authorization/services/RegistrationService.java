@@ -1,4 +1,4 @@
-package task_management_system.FirstSecurityApp.services;
+package task_management_system.Authorization.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

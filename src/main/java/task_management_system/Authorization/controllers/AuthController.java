@@ -1,4 +1,4 @@
-package task_management_system.FirstSecurityApp.controllers;
+package task_management_system.Authorization.controllers;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -6,11 +6,11 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import task_management_system.FirstSecurityApp.dto.AuthenticationDTO;
-import task_management_system.FirstSecurityApp.dto.PersonDTO;
-import task_management_system.FirstSecurityApp.security.JWTUtil;
-import task_management_system.FirstSecurityApp.services.RegistrationService;
-import task_management_system.FirstSecurityApp.util.PersonValidator;
+import task_management_system.Authorization.dto.AuthenticationDTO;
+import task_management_system.Authorization.dto.PersonDTO;
+import task_management_system.Authorization.security.JWTUtil;
+import task_management_system.Authorization.services.RegistrationService;
+import task_management_system.Authorization.util.PersonValidator;
 import task_management_system.entity.User;
 import javax.validation.Valid;
 import java.util.Map;
@@ -64,12 +64,7 @@ public class AuthController {
         String token = jwtUtil.generateToken(authenticationDTO.getEmail(), authenticationDTO.getRole().toString());
         return Map.of("jwt-token", token);
     }
-
     public User convertToPerson(PersonDTO personDTO) {
         return this.modelMapper.map(personDTO, User.class);
-    }
-
-    public User convertToPersonAuthentication(AuthenticationDTO authenticationDTO) {
-        return this.modelMapper.map(authenticationDTO, User.class);
     }
 }

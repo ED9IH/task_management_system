@@ -8,7 +8,8 @@ import task_management_system.util.Status;
 import java.util.List;
 @Getter
 @Setter
-public class TaskDTO {
+public class
+TaskDTO {
     private long taskId;
     private UserDTO userDTO;
     private String title;

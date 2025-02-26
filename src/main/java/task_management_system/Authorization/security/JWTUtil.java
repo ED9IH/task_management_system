@@ -1,4 +1,4 @@
-package task_management_system.FirstSecurityApp.security;
+package task_management_system.Authorization.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
