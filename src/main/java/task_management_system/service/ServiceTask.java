@@ -3,6 +3,7 @@ package task_management_system.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import task_management_system.dto.CreateNewTaskDTO;
@@ -16,6 +17,9 @@ import task_management_system.repositories.UserRepository;
 import task_management_system.util.Priority;
 import task_management_system.util.Status;
 import javax.transaction.Transactional;
+import java.util.Collections;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ServiceTask {
@@ -33,8 +37,10 @@ public class ServiceTask {
         Page<Task> taskPage = taskRepository.findAll(pageable);
         return createTaskDTO.toDTOPage(taskPage);
     }
-    public Page<Task> getTaskById(long id,Pageable pageable) {
-        return taskRepository.findByTaskId(id,pageable);
+    public Page<TaskDTO> getTaskById(long id,Pageable pageable) {
+       TaskDTO taskDTO= createTaskDTO.toDTO(taskRepository.findById(id).orElseThrow(()->new RuntimeException("Задача не найдена")));
+        List<TaskDTO> taskDTOList = Collections.singletonList(taskDTO);
+        return new PageImpl<>(taskDTOList, pageable, 1);
     }
 
     @Transactional

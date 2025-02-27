@@ -17,6 +17,4 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     Page<Task> findAllByAuthorEmail(@Param("email") String email, Pageable pageable);
     @Query("SELECT t FROM Task t WHERE t.status = :status")
     Page<Task> findAllByAuthorStatus(@Param("status") Status status, Pageable pageable);
-    @Query("SELECT t FROM Task t WHERE t.id = :id")
-    Page<Task> findByTaskId(@Param("id") Long id, Pageable pageable);
 }

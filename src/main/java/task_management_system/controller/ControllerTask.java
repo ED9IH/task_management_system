@@ -32,7 +32,7 @@ public class ControllerTask {
 
     @Operation(summary = "Поиск задачи по id")
     @GetMapping("/{taskId}")
-    public ResponseEntity<Page<Task>> getTaskById(@RequestParam long taskId,
+    public ResponseEntity<Page<TaskDTO>> getTaskById(@RequestParam long taskId,
                                             @RequestParam(defaultValue = "0") int page,
                                             @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page,size);
