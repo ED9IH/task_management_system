@@ -27,6 +27,6 @@ EXECUTOR(Исполнитель) Просматривать задачи мен�
 13. Измененеие приоритета задачи по вкладке /task/editPriority укажите id задачи и выберите приоритет
 14. Изменение статуса по вкладке /task/editStatus укажите id задачи и выберите статус
 В проекте исползовал:
-Java 17, SringBoot, SpringSecurity,JWT-token, SpringData, REST, MapStract, Swagger, ModeMapper, PostgresSQL 17, Lombook, GitHub
+Java 17, SringBoot, SpringSecurity,JWT-token, SpringData, REST, MapStract, Swagger, ModeMapper, PostgresSQL 17, Lombook, GitHub, JUnit5
 
   
