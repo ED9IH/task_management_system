@@ -50,7 +50,7 @@ public class AuthController {
 
         registrationService.register(user);
 
-        String token = jwtUtil.generateToken(user.getEmail(), user.getRole().toString());
+        String token = jwtUtil.generateToken(user.getEmail());
         return Map.of("jwt-token", token);
     }
 
@@ -64,7 +64,7 @@ public class AuthController {
         } catch (BadCredentialsException e) {
             return Map.of("message", "Incorrect credentials!");
         }
-        String token = jwtUtil.generateToken(authenticationDTO.getEmail(), authenticationDTO.getRole().toString());
+        String token = jwtUtil.generateToken(authenticationDTO.getEmail());
         return Map.of("jwt-token", token);
     }
 
