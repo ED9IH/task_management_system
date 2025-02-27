@@ -1,4 +1,5 @@
 package task_management_system.controller;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +34,10 @@ public class ControllerTask {
     @Operation(summary = "Поиск задачи по id")
     @GetMapping("/{taskId}")
     public ResponseEntity<Page<TaskDTO>> getTaskById(@RequestParam long taskId,
-                                            @RequestParam(defaultValue = "0") int page,
-                                            @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page,size);
-        return ResponseEntity.ok(taskService.getTaskById(taskId,pageable));
+                                                     @RequestParam(defaultValue = "0") int page,
+                                                     @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(taskService.getTaskById(taskId, pageable));
     }
 
     @Operation(summary = "Создание новой задачи")
@@ -79,8 +80,8 @@ public class ControllerTask {
     public ResponseEntity<Page<TaskDTO>> getTaskById(@RequestParam Status status,
                                                      @RequestParam(defaultValue = "0") int page,
                                                      @RequestParam(defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page,size);
-        return ResponseEntity.ok(taskService.getAllTaskStatus(status,pageable));
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(taskService.getAllTaskStatus(status, pageable));
     }
 
     @Operation(summary = "Получение всех задач по Users, нужно указать email")

@@ -1,12 +1,11 @@
 package task_management_system.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import task_management_system.util.*;
 
 import javax.persistence.*;
 import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,12 +25,12 @@ public class Task {
     @Column(name = "status")
     private Status status;
     @Enumerated(value = EnumType.STRING)
-    @Column(name ="priority")
+    @Column(name = "priority")
     private Priority priority;
     @ManyToOne
-    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User author;
-    @OneToMany(mappedBy = "task",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
     private List<Comment> comment;
 
 }

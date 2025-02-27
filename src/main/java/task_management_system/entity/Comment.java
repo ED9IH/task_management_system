@@ -1,6 +1,9 @@
 package task_management_system.entity;
+
 import lombok.*;
+
 import javax.persistence.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -17,6 +20,6 @@ public class Comment {
     @Column(name = "author")
     private String author;
     @ManyToOne
-    @JoinColumn(name = "task_id",referencedColumnName = "id")
+    @JoinColumn(name = "task_id", referencedColumnName = "id")
     private Task task;
 }

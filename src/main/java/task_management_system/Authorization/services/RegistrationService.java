@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import task_management_system.entity.User;
 import task_management_system.repositories.UserRepository;
+
 @Service
 public class RegistrationService {
 

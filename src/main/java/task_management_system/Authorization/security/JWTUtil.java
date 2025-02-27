@@ -1,4 +1,5 @@
 package task_management_system.Authorization.security;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -16,7 +17,7 @@ public class JWTUtil {
     @Value("${jwt_secret}")
     private String secret;
 
-    public String generateToken(String email,String role) {
+    public String generateToken(String email, String role) {
         Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(60).toInstant());
 
         return JWT.create()

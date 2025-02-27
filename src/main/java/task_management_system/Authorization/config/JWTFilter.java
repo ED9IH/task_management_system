@@ -1,4 +1,5 @@
 package task_management_system.Authorization.config;
+
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,14 +8,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import task_management_system.Authorization.security.JWTUtil;
 import task_management_system.Authorization.services.PersonDetailsService;
+
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 @Component
 public class JWTFilter extends OncePerRequestFilter {
-
     private final JWTUtil jwtUtil;
     private final PersonDetailsService personDetailsService;
 

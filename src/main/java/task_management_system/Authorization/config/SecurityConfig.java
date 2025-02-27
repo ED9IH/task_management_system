@@ -16,7 +16,6 @@ import task_management_system.Authorization.security.JWTUtil;
 import task_management_system.Authorization.services.PersonDetailsService;
 import task_management_system.util.Role;
 
-
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

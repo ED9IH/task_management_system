@@ -21,5 +21,4 @@ public class CreateNewTaskDTO {
     private String author;
 
 
-
 }

@@ -19,9 +19,10 @@ import java.util.List;
 public class ControllerUser {
     @Autowired
     private ServiceUser serviceUser;
+
     @Operation(summary = "Посмотреть всех Users")
     @GetMapping("allUsers")
-    public Page<UserDTO> getAllUsers(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
+    public Page<UserDTO> getAllUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return serviceUser.getAllUsers(pageable);
     }

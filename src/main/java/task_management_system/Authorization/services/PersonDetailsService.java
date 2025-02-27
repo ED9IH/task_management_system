@@ -1,4 +1,5 @@
 package task_management_system.Authorization.services;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import task_management_system.Authorization.security.PersonDetails;
 import task_management_system.entity.User;
 import task_management_system.repositories.UserRepository;
+
 import java.util.Optional;
 
 @Service
